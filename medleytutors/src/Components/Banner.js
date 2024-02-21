@@ -4,9 +4,9 @@ import sun from "../Assets/sun.png";
 import Toggle from "./Toggle";
 
 export const Banner = () => {
-  const [zIndices, setZIndices] = useState({ moon: -1, sun: 2 });
-  const [activeElement, setActiveElement] = useState('moon');
-  const [backgroundColor, setBackgroundColor] = useState('black');
+  const [zIndices, setZIndices] = useState({ moon: 2, sun: -1 });
+  const [activeElement, setActiveElement] = useState('sun');
+  const [backgroundColor, setBackgroundColor] = useState('#f39b4b');
   const [toggled, setToggled] = useState(true);
 
   const handleToggle = () => {
