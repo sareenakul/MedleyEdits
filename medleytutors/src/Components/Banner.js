@@ -7,8 +7,10 @@ export const Banner = () => {
   const [zIndices, setZIndices] = useState({ moon: -1, sun: 2 });
   const [activeElement, setActiveElement] = useState('moon');
   const [backgroundColor, setBackgroundColor] = useState('black');
+  const [toggled, setToggled] = useState(true);
 
   const handleToggle = () => {
+    setToggled((s) => !s);
     const newActiveElement = activeElement === 'moon' ? 'sun' : 'moon';
 
     setZIndices((prevZIndices) => {
@@ -28,7 +30,7 @@ export const Banner = () => {
 
   return (
     <div className="banner-container" style={{ backgroundColor }}>
-      <Toggle onToggle={handleToggle} label="Toggle Day/Night" />
+      <Toggle toggled={toggled} onClick={handleToggle} />
       <div className="banner">
         <div
           className={`banner-item banner-item1 ${activeElement === 'moon' ? 'active' : ''}`}

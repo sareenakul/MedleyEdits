@@ -1,16 +1,18 @@
 import React from "react";
 
-const Toggle = ({ onToggle, label }) => {
+const Toggle = ({ toggled, onClick }) => {
   return (
-    <div className="toggle">
-      <div className="notch"/>
+    <div onClick={onClick} className={`toggle${toggled ? " night" : ""}`}>
+      <div className="notch">
+        <div className="crater"/>
+        <div className="crater"/>
+      </div>
       <div>
         <div className="shape sm"/>
         <div className="shape sm"/>
         <div className="shape md"/>
         <div className="shape lg"/>
       </div>
-      <button onClick={onToggle}></button>
     </div>
   );
 };
