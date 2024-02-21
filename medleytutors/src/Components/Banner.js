@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import moon from "../Assets/moon.png";
 import sun from "../Assets/sun.png";
 import Toggle from "./Toggle";
+import Camera from "./Camera";
 
 export const Banner = () => {
   const [zIndices, setZIndices] = useState({ moon: 2, sun: -1 });
@@ -31,6 +32,7 @@ export const Banner = () => {
   return (
     <div className="banner-container" style={{ backgroundColor }}>
       <Toggle toggled={toggled} onClick={handleToggle} />
+      {/* <Camera/> */}
       <div className="banner">
         <div
           className={`banner-item banner-item1 ${activeElement === 'moon' ? 'active' : ''}`}

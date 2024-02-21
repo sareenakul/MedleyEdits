@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin: auto;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -73,6 +73,7 @@
   background-image: linear-gradient(aqua, skyblue);
   position: relative;
   cursor: pointer;
+  filter: drop-shadow(2px 4px 6px black);
 }
 .toggle.night{
   background-image: linear-gradient(midnightblue, rebeccapurple);
@@ -88,6 +89,7 @@
   box-shadow: 0 0 5px yellow;
   z-index: 1;
   transition: all 0.3s ease;
+  filter: drop-shadow(2px 1px 4px black);
 }
 .night > .notch{
   background: whitesmoke;
@@ -167,4 +169,9 @@
   height: 10px;
   width: 10px;
   transform: translate(-10px, 0);
+}
+
+/* camera */
+.camera{
+  
 }
