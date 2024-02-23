@@ -26,6 +26,6 @@ To get started with MedleyEdits, follow these simple steps:
 
 ```bash
 git clone https://github.com/your-username/MedleyEdits.git
-cd MedleyEdits
+cd medleytutors
 npm install
 npm start
