@@ -31,8 +31,8 @@ export const Banner = () => {
 
   return (
     <div className="banner-container" style={{ backgroundColor }}>
+      <Camera/>
       <Toggle toggled={toggled} onClick={handleToggle} />
-      {/* <Camera/> */}
       <div className="banner">
         <div
           className={`banner-item banner-item1 ${activeElement === 'moon' ? 'active' : ''}`}
