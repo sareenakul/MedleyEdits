@@ -31,7 +31,27 @@ const ScreenRecord = () =>{
                 screen
                 render={({ status, startRecording, stopRecording, mediaBlobUrl }) =>{
                     startRecordingRef.current = startRecording;
-                    
+                    return(
+                        <div>
+                            <p>Status: {resetVideo ? "Video Reset" : status}</p>
+                            <button onClick={handleStartRecording} disabled={resetVideo}>
+                                Start Recording
+                            </button>
+                            <button onClick={() => handleStopRecording(stopRecording)} disabled={resetVideo}>
+                                Stop Recording
+                            </button>
+                            <button onClick={handleResetVideo} disabled={!resetVideo}>
+                                Review Video
+                            </button>
+                            <div>
+                                {mediaBlobUrl && !resetVideo ? (
+                                    <video ref={videoRef} src={mediaBlobUrl} controls autoPlay />
+                                ):(
+                                    <div className="placeholder">No recording available</div>
+                                )}
+                                </div>
+                        </div>
+                    );
                 }}
             
             />
