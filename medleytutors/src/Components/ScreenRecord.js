@@ -35,19 +35,19 @@ const ScreenRecord = () =>{
                         <div>
                             <p>Status: {resetVideo ? "Video Reset" : status}</p>
                             <button onClick={handleStartRecording} disabled={resetVideo}>
-                                Start Recording
+                                Start
                             </button>
                             <button onClick={() => handleStopRecording(stopRecording)} disabled={resetVideo}>
-                                Stop Recording
+                                Stop
                             </button>
                             <button onClick={handleResetVideo} disabled={!resetVideo}>
-                                Review Video
+                                Review
                             </button>
                             <div>
                                 {mediaBlobUrl && !resetVideo ? (
                                     <video ref={videoRef} src={mediaBlobUrl} controls autoPlay />
                                 ):(
-                                    <div className="placeholder">No recording available</div>
+                                    <div className="placeholder">Preview</div>
                                 )}
                                 </div>
                         </div>

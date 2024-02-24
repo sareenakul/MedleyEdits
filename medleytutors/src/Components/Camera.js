@@ -35,13 +35,13 @@ const Camera = () => {
             <div className="web-rec">
               <p>Status: {resetVideo ? "Video Reset" : status}</p>
               <button onClick={handleStartRecording} disabled={resetVideo}>
-                Start Recording
+                Start
               </button>
               <button onClick={() => handleStopRecording(stopRecording)} disabled={resetVideo}>
-                Stop Recording
+                Stop
               </button>
               <button onClick={handleResetVideo} disabled={!resetVideo}>
-                Review Video
+                Review
               </button>
               <div className="video-container">
                 {mediaBlobUrl && !resetVideo ? (
