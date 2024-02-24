@@ -1,12 +1,12 @@
-//import { ReactMediaRecorder } from 'react-media-recorder';
-import { Banner } from './Components/Banner';
+//import { Banner } from './Components/Banner';
 import React from 'react';
 import './App.css';
+import VideoUpload from './Components/VideoUpload';
 
 function App() {
   return (
     <div className='App'>
-      <Banner/>
+      <VideoUpload/>
     </div>
   
   );
