@@ -4,6 +4,7 @@ import sun from "../Assets/sun.png";
 import Toggle from "./Toggle";
 import Camera from "./Camera";
 import ScreenRecord from "./ScreenRecord";
+import CombinedRecorder from "./CombinedRecorder";
 
 export const Banner = () => {
   const [zIndices, setZIndices] = useState({ moon: 2, sun: -1 });
@@ -32,9 +33,8 @@ export const Banner = () => {
 
   return (
     <div className="banner-container" style={{ backgroundColor }}>
-      <Camera/>
-      <ScreenRecord/>
       <Toggle toggled={toggled} onClick={handleToggle} />
+      <CombinedRecorder/>
       <div className="banner">
         <div
           className={`banner-item banner-item1 ${activeElement === 'moon' ? 'active' : ''}`}

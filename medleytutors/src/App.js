@@ -2,11 +2,12 @@
 import React from 'react';
 import './App.css';
 import VideoUpload from './Components/VideoUpload';
+import { Banner } from './Components/Banner';
 
 function App() {
   return (
     <div className='App'>
-      <VideoUpload/>
+      <Banner/>
     </div>
   
   );

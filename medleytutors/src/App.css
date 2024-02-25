@@ -181,11 +181,15 @@
 }
 
 .video-container {
-  position: relative;
+  position: absolute;
   width: 300px; /* Set the width and height as per your requirements */
   height: 300px;
   border-radius: 50%;
   overflow: hidden;
+  display: inline-grid;
+  justify-content: center;
+  margin-top: 856px;
+  margin-left: 552px;
 }
 
 .web-video {
