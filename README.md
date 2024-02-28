@@ -16,6 +16,8 @@ MedleyEdits is an innovative tool currently in development, designed to empower 
 
 - **Node.js**: The backend utilizes Node.js to handle the dynamic rendering of videos, ensuring efficient processing and delivery.
 
+- **ffmpeg.swam**: The ffmpeg library is a tool that enables editing of the videos.
+
 ## Getting Started
 
 To get started with MedleyEdits, follow these simple steps:
