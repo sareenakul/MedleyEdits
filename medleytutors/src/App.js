@@ -1,7 +1,6 @@
 //import { Banner } from './Components/Banner';
 import React from 'react';
 import './App.css';
-import VideoUpload from './Components/VideoUpload';
 import { Banner } from './Components/Banner';
 
 function App() {

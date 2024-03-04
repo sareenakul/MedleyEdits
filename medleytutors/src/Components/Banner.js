@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import moon from "../Assets/moon.png";
 import sun from "../Assets/sun.png";
 import Toggle from "./Toggle";
-import Camera from "./Camera";
-import ScreenRecord from "./ScreenRecord";
 import CombinedRecorder from "./CombinedRecorder";
 
 export const Banner = () => {
