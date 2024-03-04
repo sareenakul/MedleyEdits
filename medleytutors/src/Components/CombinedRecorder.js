@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ReactMediaRecorder } from "react-media-recorder";
+import Webcam from "react-webcam";
 
 const CombinedRecorder = () => {
   const [resetVideo, setResetVideo] = useState(false);
@@ -8,23 +9,40 @@ const CombinedRecorder = () => {
   const cameraStartRecordingRef = useRef(null);
   const screenStartRecordingRef = useRef(null);
 
+  const [facingMode, setFacingMode] = useState("user");
+  const webcamRef = useRef(null);
+
+  const handleDevices = React.useCallback(
+    (mediaDevices) => {
+      const videoDevices = mediaDevices.filter(({ kind }) => kind === "videoinput");
+      if (videoDevices.length > 0) {
+        setFacingMode("user");
+      }
+    },
+    [setFacingMode]
+  );
+
+  useEffect(() => {
+    navigator.mediaDevices.enumerateDevices().then(handleDevices);
+  }, [handleDevices]);
+
   const handleStartRecording = async () => {
     setResetVideo(false);
+
     try {
-        await navigator.mediaDevices.getUserMedia({ video: true });
-      } catch (error) {
-        console.error("Error accessing camera:", error);
-        return;
-      }
-  
-      // Check and request screen sharing permissions
-      try {
-        await navigator.mediaDevices.getDisplayMedia({ video: true });
-      } catch (error) {
-        console.error("Error accessing screen:", error);
-        return;
-      }
-    
+      await navigator.mediaDevices.getUserMedia({ video: true });
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+      return;
+    }
+
+    try {
+      await navigator.mediaDevices.getDisplayMedia({ video: true });
+    } catch (error) {
+      console.error("Error accessing screen:", error);
+      return;
+    }
+
     if (cameraStartRecordingRef.current) {
       cameraStartRecordingRef.current();
     }
@@ -59,18 +77,19 @@ const CombinedRecorder = () => {
             return (
               <div>
                 <p>Status: {resetVideo ? "Video Reset" : status}</p>
-                <button onClick={handleStartRecording}>
-                  Start
-                </button>
+                <button onClick={handleStartRecording}>Start</button>
                 <button onClick={() => handleStopRecording(stopRecording, () => {})}>
                   Stop
                 </button>
-                <button onClick={handleResetVideo}>
-                  Review
-                </button>
+                <button onClick={handleResetVideo}>Review</button>
                 <div className="video-container">
                   {mediaBlobUrl && !resetVideo ? (
-                    <video className="web-video" ref={cameraVideoRef} src={mediaBlobUrl} controls autoPlay/>
+                    <Webcam
+                      audio={false}
+                      ref={webcamRef}
+                      videoConstraints={{ facingMode }}
+                      className="web-video"
+                    />
                   ) : (
                     <div className="placeholder">.</div>
                   )}
@@ -88,18 +107,14 @@ const CombinedRecorder = () => {
             return (
               <div>
                 <p>Status: {resetVideo ? "Video Reset" : status}</p>
-                <button onClick={() => handleStartRecording()}>
-                  Start
-                </button>
+                <button onClick={() => handleStartRecording()}>Start</button>
                 <button onClick={() => handleStopRecording(() => {}, stopRecording)}>
                   Stop
                 </button>
-                <button onClick={handleResetVideo}>
-                  Review
-                </button>
+                <button onClick={handleResetVideo}>Review</button>
                 <div>
                   {mediaBlobUrl && !resetVideo ? (
-                    <video ref={screenVideoRef} src={mediaBlobUrl} controls autoPlay muted/>
+                    <video ref={screenVideoRef} src={mediaBlobUrl} controls autoPlay muted />
                   ) : (
                     <div className="placeholder">Preview</div>
                   )}
