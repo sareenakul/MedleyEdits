@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { ReactMediaRecorder } from "react-media-recorder";
-import Webcam from "react-webcam";
 
 const CombinedRecorder = () => {
   const [resetVideo, setResetVideo] = useState(false);
@@ -8,44 +7,25 @@ const CombinedRecorder = () => {
   const screenVideoRef = useRef(null);
   const cameraStartRecordingRef = useRef(null);
   const screenStartRecordingRef = useRef(null);
-
-  const [facingMode, setFacingMode] = useState("user");
-  const webcamRef = useRef(null);
-
-  const handleDevices = React.useCallback(
-    (mediaDevices) => {
-      const videoDevices = mediaDevices.filter(({ kind }) => kind === "videoinput");
-      if (videoDevices.length > 0) {
-        setFacingMode("user");
-      }
-    },
-    [setFacingMode]
-  );
-
-  useEffect(() => {
-    navigator.mediaDevices.enumerateDevices().then(handleDevices);
-  }, [handleDevices]);
+  const streamRef = useRef(null);
 
   const handleStartRecording = async () => {
     setResetVideo(false);
 
     try {
-      await navigator.mediaDevices.getUserMedia({ video: true });
+      // Check if the stream is not already available
+      if (!streamRef.current) {
+        streamRef.current = await navigator.mediaDevices.getUserMedia({ video: true });
+      }
     } catch (error) {
       console.error("Error accessing camera:", error);
-      return;
-    }
-
-    try {
-      await navigator.mediaDevices.getDisplayMedia({ video: true });
-    } catch (error) {
-      console.error("Error accessing screen:", error);
       return;
     }
 
     if (cameraStartRecordingRef.current) {
       cameraStartRecordingRef.current();
     }
+
     if (screenStartRecordingRef.current) {
       screenStartRecordingRef.current();
     }
@@ -77,19 +57,18 @@ const CombinedRecorder = () => {
             return (
               <div>
                 <p>Status: {resetVideo ? "Video Reset" : status}</p>
-                <button onClick={handleStartRecording}>Start</button>
+                <button onClick={handleStartRecording}>
+                  Start
+                </button>
                 <button onClick={() => handleStopRecording(stopRecording, () => {})}>
                   Stop
                 </button>
-                <button onClick={handleResetVideo}>Review</button>
+                <button onClick={handleResetVideo}>
+                  Review
+                </button>
                 <div className="video-container">
                   {mediaBlobUrl && !resetVideo ? (
-                    <Webcam
-                      audio={false}
-                      ref={webcamRef}
-                      videoConstraints={{ facingMode }}
-                      className="web-video"
-                    />
+                    <video className="web-video" ref={cameraVideoRef} src={mediaBlobUrl} controls autoPlay />
                   ) : (
                     <div className="placeholder">.</div>
                   )}
@@ -102,16 +81,22 @@ const CombinedRecorder = () => {
       <div>
         <ReactMediaRecorder
           screen
+          // Pass the same stream to the screen recorder
+          mediaStream={streamRef.current}
           render={({ status, startRecording, stopRecording, mediaBlobUrl }) => {
             screenStartRecordingRef.current = startRecording;
             return (
               <div>
                 <p>Status: {resetVideo ? "Video Reset" : status}</p>
-                <button onClick={() => handleStartRecording()}>Start</button>
+                <button onClick={() => handleStartRecording()}>
+                  Start
+                </button>
                 <button onClick={() => handleStopRecording(() => {}, stopRecording)}>
                   Stop
                 </button>
-                <button onClick={handleResetVideo}>Review</button>
+                <button onClick={handleResetVideo}>
+                  Review
+                </button>
                 <div>
                   {mediaBlobUrl && !resetVideo ? (
                     <video ref={screenVideoRef} src={mediaBlobUrl} controls autoPlay muted />

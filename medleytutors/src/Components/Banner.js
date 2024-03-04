@@ -3,7 +3,6 @@ import moon from "../Assets/moon.png";
 import sun from "../Assets/sun.png";
 import Toggle from "./Toggle";
 import CombinedRecorder from "./CombinedRecorder";
-
 export const Banner = () => {
   const [zIndices, setZIndices] = useState({ moon: 2, sun: -1 });
   const [activeElement, setActiveElement] = useState('sun');
